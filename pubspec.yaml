@@ -1,0 +1,96 @@
+name: aptiqr
+description: >
+  AptiQR — Daily Aptitude Test app for Nehru Arts & Science College,
+  Coimbatore. Student / Faculty / Admin roles, daily QR-gated aptitude
+  tests, live rankings and reports.
+publish_to: "none"
+version: 0.1.0+1
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+# -----------------------------------------------------------------------
+# Platform runners are already present. Before building:
+#   1. `flutter pub get`
+#   2. `dart run build_runner build` (regenerates Drift's local DB code)
+# See BUILDING.md or use scripts/build-release.ps1 for verified builds.
+# -----------------------------------------------------------------------
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Backend
+  supabase_flutter: ^2.5.6
+
+  # State management / routing
+  flutter_riverpod: ^2.5.1
+  go_router: ^14.2.0
+
+  # Local/offline storage (caches in-progress test answers)
+  drift: ^2.18.0
+  sqlite3_flutter_libs: ^0.5.24
+  path_provider: ^2.1.3
+  path: ^1.9.0
+  connectivity_plus: ^6.0.3
+
+  # QR generate (faculty/admin) + scan (student gate to start test)
+  qr_flutter: ^4.1.0
+  # Was ^5.1.1 (resolved 5.2.3) — bumped for the many camera-start/
+  # controller-lifecycle fixes shipped since then (6.0.x-7.x changelogs:
+  # fixed start()-while-starting errors, fixed disposed-controller wrong
+  # error codes, fixed CameraX orientation/surface timing issues — all
+  # exactly the class of bug behind the "genericError" seen when
+  # starting the student QR scanner). See widgets/qr_scanner_sheet.dart.
+  mobile_scanner: ^7.2.0
+
+  # Admin imports/exports + faculty reports
+  file_picker: ^8.0.6
+  excel: ^4.0.6
+  csv: ^6.0.0
+  pdf: ^3.11.0
+  share_plus: 12.0.2
+
+  # Analytics charts (admin/faculty reports)
+  fl_chart: ^0.68.0
+
+  # Utilities
+  intl: ^0.19.0
+  uuid: ^4.4.2
+  shared_preferences: ^2.3.2
+  geolocator: ^13.0.1
+
+  # Push notifications (optional at runtime — the app runs without Firebase
+  # config; see lib/core/push/push_service.dart and README).
+  firebase_core: ^3.6.0
+  firebase_messaging: ^15.1.3
+
+  cupertino_icons: ^1.0.8
+
+  # Typography — pure-Dart, bundles font files at build time (no native
+  # Android/iOS plugin code), so this carries none of the Gradle/AAR risk
+  # the other native plugins in this file needed workarounds for.
+  google_fonts: ^6.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  drift_dev: ^2.18.0
+  build_runner: ^2.4.11
+
+# file_picker (and other plugins) pull in flutter_plugin_android_lifecycle,
+# which from ~2.0.24 onward requires compileSdk 36. The installed Flutter
+# SDK's Gradle plugin doesn't support overriding compileSdk for plugin
+# subprojects (only the app module), so instead this pins the transitive
+# dependency back to a version compiled against compileSdk 34 — its public
+# API hasn't changed, so this is safe. Remove this override once Flutter
+# itself is upgraded to a version whose default compileSdk is 36+.
+dependency_overrides:
+  flutter_plugin_android_lifecycle: 2.0.23
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
