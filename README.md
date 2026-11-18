@@ -6,6 +6,23 @@ Flutter frontend, Supabase backend. Three roles: **Student**, **Faculty**, **Adm
 For Android APKs, Windows desktop builds, iOS prerequisites, and current
 platform limitations, see [BUILDING.md](BUILDING.md).
 
+## UI design preview
+
+Design previews from the product design deck: one screen each for role selection, the student test flow, the faculty dashboard and the admin console.
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/role-select.png" width="150" alt="Role selection"><br><sub>Role select</sub></td>
+    <td align="center"><img src="docs/screenshots/student-home.png" width="150" alt="Student home"><br><sub>Student home</sub></td>
+    <td align="center"><img src="docs/screenshots/student-question.png" width="150" alt="Test question"><br><sub>Test question</sub></td>
+    <td align="center"><img src="docs/screenshots/student-result.png" width="150" alt="Test result"><br><sub>Result</sub></td>
+    <td align="center"><img src="docs/screenshots/faculty-dashboard.png" width="150" alt="Faculty dashboard"><br><sub>Faculty dashboard</sub></td>
+    <td align="center"><img src="docs/screenshots/admin-console.png" width="150" alt="Admin console"><br><sub>Admin console</sub></td>
+  </tr>
+</table>
+
+> These are design mockups with sample data, so details may differ from the running app.
+
 > **Already have a Supabase project running?** Re-run `supabase/functions.sql`
 > in the SQL Editor after pulling the latest code — it now adds a
 > `fetch_attendance` RPC (faculty monitoring/reports previously only showed
